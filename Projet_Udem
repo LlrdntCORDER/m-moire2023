@@ -1,0 +1,183 @@
+import json
+from tqdm import tqdm
+import time
+import os
+
+###############################################################################
+#DIVERS#
+
+def result_write(list):
+    """
+    Création d'un fichier texte 'result.txt' sur base d'une liste de :
+    - str
+    - int
+    """
+    with open ("result.txt", "a+", encoding = "utf-8") as rf:
+        for i in list:
+            rf.write(i)
+
+def fusion (dict1,dict2):
+    """
+    Fusion de deux dictionnaires (-> prend deux dictionnaires en entrée):
+    - mise en commun des keys identiques (dict1[key]+dict2[key])
+    - rassemblement des keys !=
+    """
+    for i in dict1:
+        if type(dict1[i]) is str:
+            pass
+        else:
+            dict2[i]+=dict1[i]
+    return(dict2)
+
+###############################################################################
+#CHECKING1#
+
+def check_term (file):
+    """
+    Fonction de vérfication propre à cette feuille de code, me permettant de
+    vérifier dans combien de tweets d'un corpus apparait un terme ('rtbf') (==
+    ou in).
+
+    Prend en entrée : un document .json_doc
+
+    Donne en sortie un dictionnaire avec le nombre de fois que le terme a été
+    identifié == & in
+    """
+    dict_result = {"strict":0,"in":0}
+    with open (file, "r+", encoding = "utf-8") as file:
+        false = 0
+        true = 1
+        listed = file.readlines()
+        for i in listed :
+            dico = json.loads(i)
+            dict = dico["content"]
+            list_term = dict.split()
+            for j in list_term:
+                j = j.lower()
+                if "rtbf" == j:
+                    dict_result["strict"]+=1
+                    break
+                if "rtbf" in j:
+                    dict_result["in"]+=1
+                    break
+                else:
+                    pass
+    return dict_result
+
+###############################################################################
+#PREPARATION#
+
+def __create_list_media (json_database):
+    """
+    Création d'une liste de noms de médias créée sur base du document json
+    reprenant une série de médias nationaux.
+
+    => A' ADAPTER AVEC LES BONS MEDIAS
+    => MODIFIER LA STRUCTURE POUR Y JOINDRE PLUS D'INFORMATIONS
+    """
+    media_list_temp = []
+    with open(json_database, "r+", encoding = "utf-8") as file:
+        doclist =file.readlines()
+        for j in doclist:
+            item = json.loads(j)
+            print (item)
+            media_list_temp.append(item["name"])
+    media_list = [x.lower() for x in media_list_temp]
+    return media_list
+
+media_list = __create_list_media('media.json')
+
+###############################################################################
+#ANALYSE#
+
+def __find_media_in_tweet_content (str, media_list):
+    """
+    Vérifie si un média mentionné dans la liste de médias (créée précédemment)
+    apparait dans le contenu d'un tweet.
+
+    Prend en entrée un str (contenu du tweet) et la liste de médias.
+
+    => A' MODIFIER SUR BASE DES VERIFICATIONS FAITES AJD
+    """
+    list = []
+    str = str.lower()
+    for m in media_list :
+        if m in str:
+            list.append(m)
+        else:
+            pass
+    return (list)
+
+def __media_counter (file):
+    """
+    Recense le nombre de fois qu'un média est identifié dans un tweet pour un
+    document json complet.
+
+    Retourne une dictionnaire en sortie.
+
+    => A' ADAPTER SELON LES VERIFICATIONS
+    """
+    result = {}
+    with open (file, "r", encoding = "utf-8") as file:
+        list_tweet = file.readlines()
+        for i in list_tweet:
+            item = json.loads(i)
+            temp_list=__find_media_in_tweet_content(item["content"],media_list)
+            for j in temp_list :
+                if j in result:
+                    result[j]+=1
+                else:
+                    result[j]=1
+    return result
+
+def analyse (folder):
+    """
+    Permet l'analyse globale de la database selon la structure :
+    - Data
+        - #metoo
+            - 2017
+            - 2018
+            - ...
+            - 2022
+        - #metooindia
+        -...
+    Prend d'office en entrée le dossier 'data'
+    """
+    final_result={}
+    dir_list = os.listdir(folder)
+    for j in dir_list : #secondary movments
+        secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
+        for k in secondary_movments_list: #year_list
+            year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
+            print (k)
+            for l in tqdm(year_list):
+                counter = __media_counter(str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l))
+                final_result.update(counter)
+            print (final_result)
+
+###############################################################################
+#CHECKING2#
+
+def check (folder):
+    """
+    Fonction temporaire de vérification (mise en lien avec des observations
+    effectuées directement sur Twitter)
+    """
+    final_result={}
+    dir_list = os.listdir(folder)
+    for j in dir_list : #secondary movments
+        secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
+        for k in secondary_movments_list: #year_list
+            year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
+            print (k)
+            for l in year_list:
+                newdict = check_term (str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l))
+                final_result = fusion (final_result,newdict)
+            print (final_result)
+            final_result = {}
+
+###############################################################################
+#LAUNCH#
+
+#analyse ("Data_test")
+check("Data")
