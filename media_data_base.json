@@ -1,0 +1,134 @@
+{"name": "The New York Times", "RS_ID": "@nytimes", "country": "United States"}
+{"name": "The Wall Street Journal", "RS_ID": "@WSJ", "country": "United States"}
+{"name": "The Washington Post", "RS_ID": "@washingtonpost", "country": "United States"}
+{"name": "Substack", "RS_ID": "@SubstackInc", "country": "United States"}
+{"name": "The Athletic", "RS_ID": "@TheAthletic", "country": "United States"}
+{"name": "The Weather Channel", "RS_ID": "@weatherchannel", "country": "United States"}
+{"name": "The Guardian", "RS_ID": "@guardian", "country": "United Kingdom"}
+{"name": "The Daily Wire", "RS_ID": "@realDailyWire", "country": "United States"}
+{"name": "Financial Times", "RS_ID": "@FinancialTimes", "country": "United Kingdom"}
+{"name": "Barrons", "RS_ID": "@barronsonline", "country": "United States"}
+{"name": "Caixin", "RS_ID": "@caixin", "country": "China"}
+{"name": "Medium", "RS_ID": "@Medium", "country": "United States"}
+{"name": "Bildplus", "RS_ID": "@BILD", "country": "Germany"}
+{"name": "Clarín", "RS_ID": "@clarincom", "country": "Argentina"}
+{"name": "The Telegraph", "RS_ID": "@Telegraph", "country": "United Kingdom"}
+{"name": "The Economist", "RS_ID": "@TheEconomist", "country": "United Kingdom"}
+{"name": "MoneyControl Pro", "RS_ID": "@moneycontrolcom", "country": "India"}
+{"name": "America's test Kitchen", "RS_ID": "@TestKitchen", "country": "United States"}
+{"name": "LA Times", "RS_ID": "@latimes", "country": "United States"}
+{"name": "The Times", "RS_ID": "@thetimes", "country": "United Kingdom"}
+{"name": "Readly", "RS_ID": "@readly", "country": "Global"}
+{"name": "Corriere della Sera", "RS_ID": "@Corriere", "country": "Italy"}
+{"name": "Bloomberg Media", "RS_ID": "@BBGMedia", "country": "United States"}
+{"name": "Le Monde", "RS_ID": "@lemondefr", "country": "France"}
+{"name": "La Nación", "RS_ID": "@LANACION", "country": "Argentina"}
+{"name": "The Atlantic", "RS_ID": "@TheAtlantic", "country": "United States"}
+{"name": "Folha de São Paulo", "RS_ID": "@folha", "country": "Brazil"}
+{"name": "Business Insider", "RS_ID": "@BusinessInsider", "country": "United States"}
+{"name": "L'Equipe", "RS_ID": "@lequipe", "country": "France"}
+{"name": "O Globo", "RS_ID": "@JornalOGlobo", "country": "Brazil"}
+{"name": "Gazeta Wyborcza", "RS_ID": "@gazeta_wyborcza", "country": "Poland"}
+{"name": "The New Yorker", "RS_ID": "@NewYorker", "country": "United States"}
+{"name": "Dagens Nyheter", "RS_ID": "@dagensnyheter", "country": "Sweden"}
+{"name": "Le Figaro", "RS_ID": "@Le_Figaro", "country": "France"}
+{"name": "The Boston Globe", "RS_ID": "@BostonGlobe", "country": "United States"}
+{"name": "Verdens Gang", "RS_ID": "@vgnett", "country": "Norway"}
+{"name": "El Pais", "RS_ID": "@el_pais", "country": "Spain"}
+{"name": "Mediapart", "RS_ID": "@Mediapart", "country": "France"}
+{"name": "Weltplus", "RS_ID": "@welt", "country": "Germany"}
+{"name": "The Globe and Mail", "RS_ID": "@globeandmail", "country": "Canada"}
+{"name": "The Australian", "RS_ID": "@australian", "country": "Australia"}
+{"name": "National Geographic", "RS_ID": "@NatGeo", "country": "United States "}
+{"name": "Wired", "RS_ID": "@WIRED", "country": "United States"}
+{"name": "O Estado de SP", "RS_ID": "@Estadao", "country": "Brazil"}
+{"name": "Süddeutsche Zeitung", "RS_ID": "@SZ", "country": "Germany"}
+{"name": "San Francisco Chronicle", "RS_ID": "@sfchronicle", "country": "United States"}
+{"name": "Aftenposten", "RS_ID": "@Aftenposten", "country": "Norway"}
+{"name": "Helsingin Sanomat", "RS_ID": "@hsfi", "country": "Finland"}
+{"name": "Gazzetta", "RS_ID": "@Gazzetta_it", "country": "Italy"}
+{"name": "La Repubblica", "RS_ID": "@repubblica", "country": "Italy"}
+{"name": "Expressen", "RS_ID": "@Expressen", "country": "Sweden"}
+{"name": "ToI", "RS_ID": "@TOIIndiaNews", "country": "India"}
+{"name": "Harvard Business Review", "RS_ID": "@HarvardBiz", "country": "United States"}
+{"name": "Dagblade", "RS_ID": "@db_nyheter", "country": "Norway"}
+{"name": "Frankfurter Allgemeine", "RS_ID": "@faznet", "country": "Germany"}
+{"name": "Tortoise", "RS_ID": "@tortoise", "country": "United Kingdom"}
+{"name": "Valor Economico", "RS_ID": "@valoreconomico", "country": "Brazil"}
+{"name": "PunchBowl News", "RS_ID": "@PunchbowlNews", "country": "United States"}
+{"name": "Minneapolis Star Tribune", "RS_ID": "@StarTribune", "country": "United States"}
+{"name": "El Mundo", "RS_ID": "@elmundoes", "country": "Spain"}
+{"name": "New Zealand Herald", "RS_ID": "@HeraldZealand", "country": "New Zealand"}
+{"name": "El Tiempo", "RS_ID": "@ELTIEMPO", "country": "Colombia"}
+{"name": "The Daily Telegraph", "RS_ID": "@dailytelegraph", "country": "Australia"}
+{"name": "Vanity Fair", "RS_ID": "@VanityFair", "country": "United States"}
+{"name": "Mail+", "RS_ID": "@MailOnline", "country": "United Kingdom"}
+{"name": "Seattle Times", "RS_ID": "@seattletimes", "country": "United States"}
+{"name": "Netwerk24", "RS_ID": "@Netwerk24", "country": "South Africa"}
+{"name": "Svenska Dagbladet", "RS_ID": "@SvD", "country": "Sweden"}
+{"name": "La Voz del Interior", "RS_ID": "@LAVOZcomar", "country": "Argentina"}
+{"name": "Zero Hora", "RS_ID": "@zerohora", "country": "Brazil"}
+{"name": "Philadelphia Inquirer", "RS_ID": "@PhillyInquirer", "country": "United States"}
+{"name": "De Correspondent", "RS_ID": "@decorrespondent", "country": "Netherlands"}
+{"name": "La Vanguardia", "RS_ID": "@LaVanguardia", "country": "Spain"}
+{"name": "Dennik N", "RS_ID": "@dennikN", "country": "Slovakia"}
+{"name": "Stavanger Aftenbladet", "RS_ID": "@StvAftenblad", "country": "Norway"}
+{"name": "BQ prime", "RS_ID": "@bqprime", "country": "India"}
+{"name": "Dallas Morning News", "RS_ID": "@dallasnews", "country": "United States"}
+{"name": "Les Echos", "RS_ID": "@LesEchos", "country": "France"}
+{"name": "Slate", "RS_ID": "@Slate", "country": "United States"}
+{"name": "El Diario", "RS_ID": "@eldiarioes", "country": "Spain"}
+{"name": "Initium", "RS_ID": "@initiumnews", "country": "Singapore"}
+{"name": "Le Parisien", "RS_ID": "@le_Parisien", "country": "France"}
+{"name": "Kleine Zeitung", "RS_ID": "@kleinezeitung", "country": "Austria"}
+{"name": "Arkansas Democrat Gazette", "RS_ID": "@ArkansasOnline", "country": "United States"}
+{"name": "Libération", "RS_ID": "@libe", "country": "France"}
+{"name": "Nikkei Asia", "RS_ID": "@NikkeiAsia", "country": "Japan"}
+{"name": "Newsday", "RS_ID": "@Newsday", "country": "United States"}
+{"name": "The Local", "RS_ID": "@TheLocalSweden", "country": "Sweden"}
+{"name": "Expansión", "RS_ID": "@ExpansionMx", "country": "Spain"}
+{"name": "Il Post", "RS_ID": "@ilpost", "country": "Italy"}
+{"name": "Mediahuis", "RS_ID": "@MediahuisIRL", "country": "Ireland"}
+{"name": "Heise online", "RS_ID": "@heiseonline", "country": "Germany"}
+{"name": "Die Rheinpfalz", "RS_ID": "@rheinpfalz", "country": "Germany"}
+{"name": "The Information", "RS_ID": "@theinformation", "country": "United States"}
+{"name": "Zetland", "RS_ID": "@Zetland", "country": "Denmark"}
+{"name": "Diari ARA", "RS_ID": "@diariARA", "country": "Spain"}
+{"name": "News24", "RS_ID": "@News24", "country": "South Africa"}
+{"name": "El Tiempo Latino", "RS_ID": "@eltiempolatino", "country": "United States"}
+{"name": "PÚBLICO", "RS_ID": "@publico_es", "country": "Portugal"}
+{"name": "Neue Zürcher Zeitung Deutschland Deutschland", "RS_ID": "@NZZde", "country": "Germany"}
+{"name": "Defector", "RS_ID": "@DefectorMedia", "country": "United States"}
+{"name": "O Tempo", "RS_ID": "@otempo", "country": "Brazil"}
+{"name": "ABC", "RS_ID": "@abc_es", "country": "Spain"}
+{"name": "El Confidencial", "RS_ID": "@elconfidencial", "country": "Spain"}
+{"name": "Nola.com", "RS_ID": "@NOLAnews", "country": "United States"}
+{"name": "The Spectator", "RS_ID": "@spectator", "country": "United Kingdom"}
+{"name": "Die Presse", "RS_ID": "@DiePressecom", "country": "Austria"}
+{"name": "The Pioneer", "RS_ID": "@ThePioneerDe", "country": "Germany"}
+{"name": "Toronto Star", "RS_ID": "@TorontoStar", "country": "Canada"}
+{"name": "Tampa Bay Times", "RS_ID": "@TB_Times", "country": "United States"}
+{"name": "STAT", "RS_ID": "@statnews", "country": "United States"}
+{"name": "The Ken", "RS_ID": "@TheKenWeb", "country": "India"}
+{"name": "Rheinische Post", "RS_ID": "@rponline", "country": "Germany"}
+{"name": "Estado de Minas", "RS_ID": "@em_com", "country": "Brazil"}
+{"name": "Republik", "RS_ID": "@RepublikMagazin", "country": "Switzerland"}
+{"name": "El Español", "RS_ID": "@elespanolcom", "country": "Spain"}
+{"name": "La Croix", "RS_ID": "@LaCroix", "country": "France"}
+{"name": "La Tercera", "RS_ID": "@latercera", "country": "Chile"}
+{"name": "Der Standard", "RS_ID": "@derStandardat", "country": "Austria"}
+{"name": "Allgemeine Zeitung", "RS_ID": "@aznachrichten", "country": "Germany"}
+{"name": "La Voz de Galicia", "RS_ID": "@lavozdegalicia", "country": "Spain"}
+{"name": "El Nuevo Dia", "RS_ID": "@ElNuevoDia", "country": "Porto Rico"}
+{"name": "El Correo", "RS_ID": "@elcorreo_com", "country": "Spain"}
+{"name": "Daily Maverick", "RS_ID": "@dailymaverick", "country": "South Africa"}
+{"name": "Puls Biznesu", "RS_ID": "@puls_biznesu", "country": "Poland"}
+{"name": "Krautreporter", "RS_ID": "@krautreporter", "country": "Germany"}
+{"name": "Correio Braziliense", "RS_ID": "@correio", "country": "Brazil"}
+{"name": "The Daily Memphian", "RS_ID": "@DailyMemphian", "country": "United States"}
+{"name": "A Tarde", "RS_ID": "@atarde", "country": "Brazil"}
+{"name": "Nordwest-Zeitung", "RS_ID": "@nwzonline", "country": "Germany"}
+{"name": "Infolibre", "RS_ID": "@_infoLibre", "country": "Spain"}
+{"name": "Mittelbayerische", "RS_ID": "@mz_de", "country": "Germany"}
+{"name": "Stuttgarter Zeitung", "RS_ID": "@StZ_NEWS", "country": "Germany"}
+{"name": "Stuttgarter Nachrichten", "RS_ID": "@StN_News", "country": "Germany"}

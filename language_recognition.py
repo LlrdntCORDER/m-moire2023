@@ -35,11 +35,14 @@ def __detection(str):
     entrée.
 
     Retourne en sortie l'identifiant de lanague selon la norme ISO639-1
-    
+
     Modules :
     - langdetect
     """
-    return (detect(str))
+    try:
+        return (detect(str))
+    except:
+        pass
 
 ###############################################################################
 #ANALYSE
@@ -55,5 +58,8 @@ def language_analyse (str):
     - langdetect
     """
     str_result = __pre_clean_url (str)
-    lg = __detection(str_result)
-    return (lg)
+    if len(str)>0:
+        lg = __detection(str_result)
+        return (lg)
+    else:
+        pass
