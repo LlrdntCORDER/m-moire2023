@@ -2,6 +2,7 @@ import json
 from tqdm import tqdm
 import time
 import os
+import re
 
 ###############################################################################
 #DIVERS#
@@ -32,40 +33,6 @@ def fusion (dict1,dict2):
             dict2[i] = dict1[i]
     return(dict2)
 
-###############################################################################
-#CHECKING1#
-
-def check_term (file):
-    """
-    Fonction de vérfication propre à cette feuille de code, me permettant de
-    vérifier dans combien de tweets d'un corpus apparait un terme ('rtbf') (==
-    ou in).
-
-    Prend en entrée : un document .json_doc
-
-    Donne en sortie un dictionnaire avec le nombre de fois que le terme a été
-    identifié == & in
-    """
-    dict_result = {"strict":0,"in":0}
-    with open (file, "r+", encoding = "utf-8") as file:
-        false = 0
-        true = 1
-        listed = file.readlines()
-        for i in listed :
-            dico = json.loads(i)
-            dict = dico["content"]
-            list_term = dict.split()
-            for j in list_term:
-                j = j.lower()
-                if "rtbf" == j:
-                    dict_result["strict"]+=1
-                    break
-                if "rtbf" in j:
-                    dict_result["in"]+=1
-                    break
-                else:
-                    pass
-    return dict_result
 
 ###############################################################################
 #PREPARATION#
@@ -78,33 +45,33 @@ def __create_list (json_database,mode):
     => MODIFIER LA STRUCTURE POUR Y JOINDRE PLUS D'INFORMATIONS
     """
     list_temp = []
-    if mode == "name":
+    if mode == "name_mention":
         with open(json_database, "r+", encoding = "utf-8") as file:
             doclist =file.readlines()
             for j in doclist:
                 item = json.loads(j)
                 list_temp.append(item["name"])
         media_list = [x.lower() for x in list_temp]
-    elif mode == "account" :
+    elif mode == "rsid_publication" :
         with open(json_database, "r+", encoding = "utf-8") as file:
             doclist =file.readlines()
             for j in doclist:
                 item = json.loads(j)
                 list_temp.append(item["RS_ID"])
-        media_list = [x.lower() for x in list_temp]
-    elif mode == "arobase":
+        media_list = list_temp
+    elif mode == "rsid_mention":
         with open(json_database, "r+", encoding = "utf-8") as file:
             doclist =file.readlines()
             for j in doclist:
                 item = json.loads(j)
-                list_temp.append("@"+str(item["RS_ID"]))
+                list_temp.append(str(item["RS_ID"]))
         media_list = list_temp
     return media_list
 
 ###############################################################################
 #ANALYSE#
 
-def __find_terms_in_tweet_content (str, list, prec):
+def __find_terms_in_tweet_content_LIST (str, list, prec):
     """
     Vérifie si un terme mentionné dans une liste apparait dans le contenu
     d'un tweet.
@@ -120,23 +87,10 @@ def __find_terms_in_tweet_content (str, list, prec):
             else:
                 pass
         elif prec == "strict":
-            if m == str:
+            if m in str:
                 final_list.append(m)
             else:
                 pass
-    return (final_list)
-
-def __find_terms_in_tweet_account (str, account, prec):
-    """
-    Vérifie si un terme mentionné dans une liste apparait dans le nom d'un compte
-    ayant publié un tweet.
-
-    Prend en entrée un str (contenu du tweet) et une liste de str.
-    """
-    if str == account:
-        return true
-    else:
-        return false
     return (final_list)
 
 def __term_counter (file,medialist,mode):
@@ -152,9 +106,9 @@ def __term_counter (file,medialist,mode):
         for i in list_tweet:
             item = json.loads(i)
             if mode == "content":
-                temp_list=__find_terms_in_tweet_content_relative(item["content"],medialist, "relative") #changer nom de fonction ici
+                temp_list=__find_terms_in_tweet_content_LIST(item["content"],medialist,"relative") #changer nom de fonction ici
             else :
-                temp_list=__find_terms_in_tweet_content(item["user"]["username"],medialist, "strict") #changer nom de fonction ici
+                temp_list=__find_terms_in_tweet_content_LIST(item["user"]["username"],medialist,"relative") #changer nom de fonction ici
             for j in temp_list :
                 if j in result:
                     result[j]+=1
@@ -162,7 +116,7 @@ def __term_counter (file,medialist,mode):
                     result[j]=1
     return result
 
-def __publication_counter (file,medialist):
+def __publication_counter(file,medialist):
     result = {}
     with open (file, "r", encoding = "utf-8") as file:
         list_tweet = file.readlines()
@@ -177,7 +131,7 @@ def __publication_counter (file,medialist):
                         result[j]=1
     return result
 
-def analyse (folder,json_db,mode):
+def analyse_global (folder,json_db,mode):
     """
     Permet l'analyse globale de la database selon la structure :
     - Data
@@ -191,12 +145,12 @@ def analyse (folder,json_db,mode):
     Prend d'office en entrée le dossier 'data'
     """
     list_year = []
-    if mode not in ["account","arobase","name"]:
+    if mode not in ["rsid_publication","rsid_mention","name_mention"]:
         print ("Mode non pris en charge")
     else:
         final_result={}
         dir_list = os.listdir(folder)
-        if mode in ["arobase","name"]:
+        if mode =="name_mention":
             medialist = __create_list(json_db,mode)
             for j in dir_list : #secondary movments
                 secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
@@ -208,7 +162,7 @@ def analyse (folder,json_db,mode):
                         final_result = fusion(final_result,counter)
                     list_year.append(final_result)
             return final_result
-        elif mode == "account":
+        elif mode == "rsid_publication":
             medialist = __create_list(json_db,mode)
             for j in dir_list : #secondary movments
                 secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
@@ -216,12 +170,12 @@ def analyse (folder,json_db,mode):
                     year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
                     print (k)
                     for l in tqdm(year_list):
-                        counter = __term_counter(str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l),medialist,"account")
+                        counter = __term_counter(str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l),medialist,"content")
                         final_result = fusion(final_result,counter)
                     list_year.append(final_result)
             return final_result
-        elif mode == "arobase":
-            termlist = __create_list(json_db,mode)
+        elif mode == "rsid_mention":
+            medialist = __create_list(json_db,mode)
             for j in dir_list : #secondary movments
                 secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
                 for k in secondary_movments_list: #year_list
@@ -232,22 +186,90 @@ def analyse (folder,json_db,mode):
                         final_result = fusion(final_result,counter)
                     list_year.append(final_result)
             return final_result
-###############################################################################
-#CHECKING2#
 
-def check (folder):
+def analyse_month_by_month(folder,json_db,mode):
     """
-    Fonction temporaire de vérification (mise en lien avec des observations
-    effectuées directement sur Twitter)
+    Permet l'analyse globale de la database selon la structure :
+    - Data
+        - #metoo
+            - 2017
+            - 2018
+            - ...
+            - 2022
+        - #metooindia
+        -...
+    Prend d'office en entrée le dossier 'data'
     """
-    final_result={}
-    dir_list = os.listdir(folder)
-    for j in dir_list : #secondary movments
-        secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
-        for k in secondary_movments_list: #year_list
-            year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
-            print (k)
-            for l in year_list:
-                newdict = check_term (str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l))
-                final_result = fusion (newdict,final_result)
-            final_result = {}
+    if mode not in ["rsid_publication","rsid_mention","name_mention"]:
+        print ("Mode non pris en charge")
+    else:
+        final_result={}
+        final_list=[]
+        dir_list = os.listdir(folder)
+        if mode == "name_mention":
+            medialist = __create_list(json_db,mode)
+            for j in dir_list : #secondary movments
+                secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
+                for k in secondary_movments_list: #year_list
+                    year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
+                    print (k)
+                    for l in tqdm(year_list):
+                        counter = __term_counter(str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l),medialist,"content")
+                        final_result["Dynamic"] = str(j)
+                        final_result["Year"] = str(k)
+                        final_result["Month"] = str(l)
+                        final_result["Counter_content"] = counter
+                        print (final_result)
+                        final_list.append(final_result)
+                        final_result={}
+            return final_list
+        elif mode == "rsid_publication":
+            medialist = __create_list(json_db,mode)
+            for j in dir_list : #secondary movments
+                secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
+                for k in secondary_movments_list: #year_list
+                    year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
+                    print (k)
+                    for l in tqdm(year_list):
+                        counter = __term_counter(str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l),medialist,"rsid_publication")
+                        final_result["Dynamic"] = str(j)
+                        final_result["Year"] = str(k)
+                        final_result["Month"] = str(l)
+                        final_result["Rsid_publication_counter"] = counter
+                        print (final_result)
+                        final_list.append(final_result)
+                        final_result={}
+            return final_list
+        elif mode == "rsid_mention":
+            termlist = __create_list(json_db,mode)
+            for j in dir_list : #secondary movments
+                secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
+                for k in secondary_movments_list: #year_list
+                    year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
+                    print (k)
+                    for l in tqdm(year_list):
+                        counter = __term_counter(str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l),medialist,"content")
+                        final_result["Dynamic"] = str(j)
+                        final_result["Year"] = str(k)
+                        final_result["Month"] = str(l)
+                        final_result["Rsid_mention_counter"] = counter
+                        print (final_result)
+                        final_list.append(final_result)
+                        final_result={}
+        elif mode == "rsid_mention":
+            termlist = __create_list(json_db,mode)
+            for j in dir_list : #secondary movments
+                secondary_movments_list = os.listdir (str(folder)+"\\"+str(j))
+                for k in secondary_movments_list: #year_list
+                    year_list = os.listdir (str(folder)+"\\"+str(j)+"\\"+str(k))
+                    print (k)
+                    for l in tqdm(year_list):
+                        counter = __term_counter(str(folder)+"\\"+str(j)+"\\"+str(k)+"\\"+str(l),medialist,"content")
+                        final_result["Dynamic"] = str(j)
+                        final_result["Year"] = str(k)
+                        final_result["Month"] = str(l)
+                        final_result["rsid_mention_counter"] = counter
+                        print (final_result)
+                        final_list.append(final_result)
+                        final_result={}
+            return final_list
