@@ -1,10 +1,13 @@
+###############################################################################
+#Import de modules externes#
 from langdetect import detect
 
 ###############################################################################
-#PRE-TREATMENT
+#Pré-traitement#
 def __pre_clean_url (str):
     """
-    Suppression des liens dans une chaine de caractère encodée en entrée
+    Fonction permettant de supprimer des liens dans une chaîne de caractère mentionnée en argument
+    de la fonction.
     """
     list = str.split()
     counter=0
@@ -31,12 +34,12 @@ def __pre_clean_url (str):
 
 def __detection(str):
     """
-    Détection du langage utilisé dans une chaine de caractère mentionnée en
+    Fonction permettant la détection du langage utilisé dans une chaine de caractère mentionnée en
     entrée.
 
-    Retourne en sortie l'identifiant de lanague selon la norme ISO639-1
+    Retourne en sortie l'identifiant de langage selon la norme ISO639-1
 
-    Modules :
+    Module utilisé :
     - langdetect
     """
     try:
@@ -45,7 +48,7 @@ def __detection(str):
         pass
 
 ###############################################################################
-#ANALYSE
+#Analyse#
 
 def language_analyse (str):
     """
