@@ -1,25 +1,33 @@
+###############################################################################
+#Import de modules externes#
 import json
 from tqdm import tqdm
-import time
 import media_localisation as ml
 import os
 
-def metadata_analyse_year(folder):
+###############################################################################
+#Analyse#
+def metadata_analyse_year(folder,json_db):
     """
-    Permet l'analyse globale de la database selon la structure :
-    - Data
-        - #metoo
-            - 2017()
-            - 2018
-            - ...
-            - 2022
-        - #metooindia
-        -...
-    Prend d'office en entrée le dossier 'data'
+    Cette fonction permet d'analyser les métadonnées des tweets partagés par les comptes
+    compris dans une base de données .json (mentionnée en argument)
+
+    Le programme prend en entrée :
+        - une base de données (folder)
+        - une base de données json reprenant une liste de compte que l'on comprendra dans notre analyse.
+        Ce dictionnaire doit comprendre des éléménets structurés de cette manière :
+        {"name": "The New York Times", "RS_ID": "@nytimes", "country": "United States"}
+    
+    Il retourne un dictionnaire reprenant le totals du nombre de mentions 'like', de retweets et de réponses
+    engendrées par les comptes mentionnés dans liste 'json_db' (et le nombre total de tweets analysés afin de nous
+    permettre de calculer les moyennes ultérieurement). 
+
+     Nécessite le(s) module(s) externe(s):
+        - json
     """
     global_result={}
     global_dict={}
-    medialist = ml.__create_list ('media.json','rsid_mention')
+    medialist = ml.__create_list (json_db,'rsid_mention')
     dir_list = os.listdir(folder)
     print (dir_list)
     with open ("md_result_AVERAGETOTAL.csv",'w',encoding='utf-8') as result_file:
@@ -37,7 +45,7 @@ def metadata_analyse_year(folder):
                         for it in tqdm(tweet_list):
                             item = json.loads(it)
                             user="@"+str(item['user']['username'])
-                            if (user).lower() != "##########################":
+                            if user in medialist:
                                 global_result['like_month']+=item['likeCount']
                                 global_result['retweet_month']+=item['retweetCount']
                                 global_result['reply_month']+=item['replyCount']
@@ -49,24 +57,22 @@ def metadata_analyse_year(folder):
 
 
 
-
-def metadata_analyse_average (folder):
+def metadata_analyse (folder):
     """
-    Permet l'analyse globale de la database selon la structure :
-    - Data
-        - #metoo
-            - 2017()
-            - 2018
-            - ...
-            - 2022
-        - #metooindia
-        -...
-    Prend d'office en entrée le dossier 'data'
+    Cette fonction permet d'analyser les métadonnées des tweets compris dans une base de données 'folder'
+
+    Le programme prend en entrée :
+        - une base de données (folder
+    
+    Il retourne un dictionnaire reprenant le totals du nombre de mentions 'like', de retweets et de réponses
+    engendrées par les tweets compris dans la base de données(et le nombre total de tweets analysés afin de nous
+    permettre de calculer les moyennes ultérieurement). 
+
+     Nécessite le(s) module(s) externe(s):
+        - json
     """
     global_result={}
     global_dict={}
-    medialist = ml.__create_list ('media.json','account')
-    medialist_bis=ml.__create_list ('media.json','arobase')
     dir_list = os.listdir(folder)
     with open ("md_result_bis.csv",'w',encoding='utf-8') as result_file:
         for j in tqdm(dir_list) : #secondary movments
@@ -90,9 +96,5 @@ def metadata_analyse_average (folder):
                             global_result[l]['count']+=1
         print (global_result)
         for month in global_result:
-            if global_result[month]['count']!=0:
-                result_file.write(str(month)+","+str(global_result[month]['like_month']//global_result[month]['count'])+","+str(global_result[month]['retweet_month']//global_result[month]['count'])+","+str(global_result[month]['reply_month']['count'])+"\n")
-            else:
-                print (global_result[month])
+            result_file.write(str(month)+","+str(global_result[month]['like_month'])+","+str(global_result[month]['retweet_month'])+","+str(global_result[month]['reply_month'])+","+str(global_result['count'])+"\n")
 
-metadata_analyse_year('Data')
